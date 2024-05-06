@@ -1,0 +1,40 @@
+{
+  "apps": [
+    {
+      "name": "app",
+      "script": "src/index.js",
+      "instances": 1,
+      "autorestart": true,
+      "watch": false,
+      "time": true,
+      "env": {
+        "NODE_ENV": "staging"
+      },
+      "env_development": {
+        "NODE_ENV": "development",
+        "CLIENT_URL": "http://localhost:4100",
+        "DATABASE_URL": "mongodb+srv://dev-accounting:tcZ5xLLgEDFc5C3R@dev-cluster-a.n34zv.mongodb.net/Accounting",
+        "SECRET_KEY_AWS": "WGDL0Ieatfj5oNUvR4tUrOe1aR0SxgcWA2I6eIXX",
+        "SECRET_ID_AWS": "AKIA6PYATJIOIH5QMJSS",
+        "ACCESS_KEY": "AKIA6PYATJIOIH5QMJSS"
+      },
+      "env_staging": {
+        "NODE_ENV": "staging",
+        "CLIENT_URL": "http://localhost:4100",
+        "DATABASE_URL": "mongodb+srv://accounting-admin:M3RfOqCDLYNFaUoc@staging-a.6dfi4.mongodb.net/accounting-staging",
+        "SECRET_KEY_AWS": "WGDL0Ieatfj5oNUvR4tUrOe1aR0SxgcWA2I6eIXX",
+        "SECRET_ID_AWS": "AKIA6PYATJIOIH5QMJSS",
+        "ACCESS_KEY": "AKIA6PYATJIOIH5QMJSS"
+      },
+      "env_production": {
+        "NODE_ENV": "production",
+        "CLIENT_URL": "http://localhost:4100",
+        "DATABASE_URL": "mongodb://localhost:27017/myDB",
+        "SECRET_KEY_AWS": "4B21NOOhMlQcXVObV7b2D5Vij/HVNpr7BMbMmwPf",
+        "SECRET_ID_AWS": "AKIA6PYATJIOPAKOW5X2",
+        "ACCESS_KEY": "AKIA6PYATJIOPAKOW5X2"
+
+      }
+    }
+  ]
+}

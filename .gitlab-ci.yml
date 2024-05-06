@@ -1,0 +1,35 @@
+image: alpine
+
+stages:
+  - Deploying to Development
+  - Deploying to QA
+
+Deploying to Dev:
+  stage: Deploying to Development
+  before_script:
+  - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )' 
+  - eval $(ssh-agent -s)
+  - echo "$dev_pvt_key" | tr -d '\r' | ssh-add -
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - ssh-keyscan $dev_ip >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+  script:
+  - ssh $user@$dev_ip "cd /home/ubuntu/api/accounting-api && git checkout Development && git pull origin Development && npm install . && pm2 restart app"
+  only:
+    - Development
+    
+Deploying to QA:
+  stage: Deploying to QA
+  before_script:
+  - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )' 
+  - eval $(ssh-agent -s)
+  - echo "$stage_pvt_key" | tr -d '\r' | ssh-add -
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - ssh-keyscan $stage_ip >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+  script:
+  - ssh $user@$stage_ip "cd /home/ubuntu/api/accounting-api && git checkout Staging && git pull origin Staging && npm install . && pm2 restart app"
+  only:
+    - Staging
